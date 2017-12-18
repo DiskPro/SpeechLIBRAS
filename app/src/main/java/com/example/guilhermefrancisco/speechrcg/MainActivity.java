@@ -242,7 +242,9 @@ public class MainActivity extends AppCompatActivity {
                     if (word.toLowerCase().charAt(i) != ' ' ||
                             word.toLowerCase().charAt(i) != ',' ||
                             word.toLowerCase().charAt(i) != '.' ||
-                            word.toLowerCase().charAt(i) != ';') {
+                            word.toLowerCase().charAt(i) != ';' ||
+                            word.toLowerCase().charAt(i) != '\'' ||
+                            word.toLowerCase().charAt(i) != '\"'){
                         LetraSep = word.toLowerCase().charAt(i);
                         Cell createList = new Cell();
 
