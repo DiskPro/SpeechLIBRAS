@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView voiceI;
     private ImageButton speakB;
 
-    private String resultTxt = "teste espaco teste";
+    private String resultTxt = "Hello!";
 
 
     //TODO: Transfer this to a JSON file
@@ -153,7 +153,10 @@ public class MainActivity extends AppCompatActivity {
 
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
-        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, "Fale agora!");
+
+        String spkDlg = getString(R.string.speakDialog);
+
+        intent.putExtra(RecognizerIntent.EXTRA_PROMPT, spkDlg);
 
         try {
             startActivityForResult(intent, REQ_CODE_SPEECH_INPUT);
@@ -169,7 +172,7 @@ public class MainActivity extends AppCompatActivity {
         switch (requestCode) {
             case REQ_CODE_SPEECH_INPUT: {
                 if (resultCode == RESULT_OK && null != data) {
-                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS);
+                    ArrayList<String> result = data.getStringArrayListExtra(RecognizerIntent.EXTRA_RESULTS); //Creates result object which will store text after it is converted
 
                     resultTxt = result.get(0);
 
@@ -177,7 +180,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
-                    recyclerView.setLayoutManager(layoutManager);
+                    recyclerView.setLayoutManager(layoutManager); //Instantiates and sets up new layout manager
 
                     recyclerView.setHasFixedSize(true);
 
@@ -186,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
 
                     recyclerView.setAdapter(adpt);
 
-                    voiceI.setText(resultTxt);
+                    voiceI.setText(resultTxt); //Changes text of element to the converted text
                 }
                 break;
             }
@@ -199,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static boolean temEspaco(String str) {
+    public static boolean temEspaco(String str) { //Function for checking the existence of a space character
         if (!hasLength(str)) {
             return false;
         }
@@ -213,7 +216,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private ArrayList<Cell> prepareData(String rsltxt) {
+    private ArrayList<Cell> prepareData(String rsltxt) { //Prepares data and creates list with both images (in LIBRAS) and letters
         ArrayList<Cell> theimage = new ArrayList<>();
 
         String word;
@@ -222,16 +225,16 @@ public class MainActivity extends AppCompatActivity {
         Character LetraSep = ' ';
 
         while (!lastword) {
-            if (temEspaco(rsltxt)) {
-                word = rsltxt.substring(0, rsltxt.indexOf(' '));
-                newIdx = rsltxt.indexOf(' ') + 1;
+            if (temEspaco(rsltxt)) {//Checks for existence of space character
+                word = rsltxt.substring(0, rsltxt.indexOf(' ')); //Chops string down to first word before space
+                newIdx = rsltxt.indexOf(' ') + 1; //Creates new index value to be used in next substring
 
                 rsltxt = rsltxt.substring(newIdx);
             } else {
                 word = rsltxt;
                 lastword = true;
             }
-            if (mapaLetra.get(word) != null) {
+            if (mapaLetra.get(word) != null) { //Checks for existence of word in the mapaLetra map after string is divided in words
                 Cell createList = new Cell();
 
                 createList.setLetra(word);
@@ -242,18 +245,19 @@ public class MainActivity extends AppCompatActivity {
                     if (word.toLowerCase().charAt(i) != ' ' ||
                             word.toLowerCase().charAt(i) != ',' ||
                             word.toLowerCase().charAt(i) != '.' ||
-                            word.toLowerCase().charAt(i) != ';' ||
+                            word.toLowerCase().charAt(i) != ';' ||    //Really "ghetto" fallback measures for unsupported character usage
                             word.toLowerCase().charAt(i) != '\'' ||
-                            word.toLowerCase().charAt(i) != '\"'){
+                            word.toLowerCase().charAt(i) != '\"' ||
+                            word.toLowerCase().charAt(i) != '!'){
                         LetraSep = word.toLowerCase().charAt(i);
                         Cell createList = new Cell();
 
                         createList.setLetra(String.valueOf(LetraSep));
-                        createList.setImg(imagem_letra[mapaLetra.get(String.valueOf(LetraSep))]);
-                        theimage.add(createList);
+                        createList.setImg(imagem_letra[mapaLetra.get(String.valueOf(LetraSep))]); //Create object with the image version of the letter and text description
+                        theimage.add(createList); //Add said object to list
                     }
                 }
             }
-        } return theimage;
+        } return theimage; //Return list with images in order to display them
     }
         }
