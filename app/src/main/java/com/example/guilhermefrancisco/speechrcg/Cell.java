@@ -1,12 +1,10 @@
 package com.example.guilhermefrancisco.speechrcg;
 
-/**
- * Created by Guilherme Francisco on 03/11/2017.
- */
-
 public class Cell {
     private String letra;
     private Integer img;
+
+    //Getters and setters.
 
     public String getLetra() {
         return letra;
