@@ -154,7 +154,7 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL, RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE, Locale.getDefault());
 
-        String spkDlg = getString(R.string.speakDialog);
+        String spkDlg = getResources().getString(R.string.speakDialog);
 
         intent.putExtra(RecognizerIntent.EXTRA_PROMPT, spkDlg);
 
