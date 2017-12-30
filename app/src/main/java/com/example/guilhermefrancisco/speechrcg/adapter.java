@@ -37,7 +37,7 @@ public class adapter extends RecyclerView.Adapter<adapter.ViewHolder> {
             @Override
                     public void onClick(View view)
             {
-                Toast.makeText(cntxt, "Letra", Toast.LENGTH_SHORT).show();
+                Toast.makeText(cntxt, viewHolder.letra.getText() , Toast.LENGTH_SHORT).show();
             }
     });
     }
