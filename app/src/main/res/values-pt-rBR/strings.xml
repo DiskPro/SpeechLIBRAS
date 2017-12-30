@@ -2,4 +2,5 @@
 <resources>
     <string name="app_name">Voz para Texto</string>
     <string name="speak">Fale</string>
+    <string name="speakDialog">Fale agora!</string>
 </resources>
