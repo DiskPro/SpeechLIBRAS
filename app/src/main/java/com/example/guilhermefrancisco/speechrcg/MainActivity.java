@@ -168,8 +168,6 @@ public class MainActivity extends AppCompatActivity {
                         LetraSep = String.valueOf(word.toLowerCase().charAt(i));
                         Cell createList = new Cell();
 
-                        String test = MapLetra.get(LetraSep);
-
                         createList.setLetra(String.valueOf(LetraSep));
                         createList.setImg(resources.getIdentifier(MapLetra.get(LetraSep), "drawable", context.getPackageName())); //Create object with the image version of the letter and text description
                         theimage.add(createList); //Add said object to list
