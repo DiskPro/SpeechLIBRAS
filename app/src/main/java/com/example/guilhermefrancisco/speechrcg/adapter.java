@@ -15,33 +15,37 @@ public class adapter extends RecyclerView.Adapter<adapter.ViewHolder> {
     private ArrayList<Cell> galleryList;
     private Context cntxt;
 
+    //Responsible for adapter object
     public adapter(Context cntxt, ArrayList<Cell> galleryList)
     {
         this.galleryList = galleryList;
         this.cntxt = cntxt;
     }
 
+    //This is getting a bit annoying now. This is just responsible for the ViewHolder object.
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup vG, int i) {
         View view = LayoutInflater.from(vG.getContext()).inflate(R.layout.cell, vG, false);
         return new ViewHolder(view);
     }
 
+    //Sets images and text for the viewholder, along with displaying the category in which the image is present (example: Letra)
     @Override
-    public void onBindViewHolder(adapter.ViewHolder viewHolder, int i)
+    public void onBindViewHolder(final adapter.ViewHolder viewHolder, int i)
     {
-        viewHolder.letra.setText(galleryList.get(i).getLetra());
+        viewHolder.letter.setText(galleryList.get(i).getLetter());
         viewHolder.img.setScaleType(ImageView.ScaleType.CENTER_CROP);
         viewHolder.img.setImageResource(galleryList.get(i).getImg());
         viewHolder.img.setOnClickListener(new View.OnClickListener(){
             @Override
                     public void onClick(View view)
             {
-                Toast.makeText(cntxt, viewHolder.letra.getText() , Toast.LENGTH_SHORT).show();
+                Toast.makeText(cntxt, viewHolder.letter.getText() , Toast.LENGTH_SHORT).show();
             }
     });
     }
 
+    //Just returns the amount of items present in the gallery.
     @Override
     public int getItemCount()
     {
@@ -49,12 +53,12 @@ public class adapter extends RecyclerView.Adapter<adapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder{
-        private TextView letra;
+        private TextView letter;
         private ImageView img;
         public ViewHolder(View view){
             super(view);
 
-            letra = (TextView) view.findViewById(R.id.letra);
+            letter = (TextView) view.findViewById(R.id.letter);
             img = (ImageView) view.findViewById(R.id.img);
         }
     }

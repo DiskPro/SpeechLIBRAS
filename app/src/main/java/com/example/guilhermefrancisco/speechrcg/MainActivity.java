@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
 
     private String resultTxt = "Hello";
 
-    private HashMap<String, String> MapLetra;
+    private HashMap<String, String> MapLetter;
+
 
     @Override
 
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        MapLetra = new Gson().fromJson(getString(R.string.map), new TypeToken<HashMap<String, String>>(){}.getType());
+        MapLetter = new Gson().fromJson(getString(R.string.map), new TypeToken<HashMap<String, String>>(){}.getType());
 
         voiceI = findViewById(R.id.voiceInput);
         speakB = findViewById(R.id.btnSpeak);
@@ -50,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
-        RecyclerView recyclerView = findViewById(R.id.imagens);
+        RecyclerView recyclerView = findViewById(R.id.images);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
         recyclerView.setLayoutManager(layoutManager);
@@ -91,7 +92,7 @@ public class MainActivity extends AppCompatActivity {
 
                     resultTxt = result.get(0);
 
-                    RecyclerView recyclerView = findViewById(R.id.imagens);
+                    RecyclerView recyclerView = findViewById(R.id.images);
 
 
                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false);
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static boolean temEspaco(String str) { //Function for checking the existence of a space character
+    public static boolean hasSpace(String str) { //Function for checking the existence of a space character
         if (!hasLength(str)) {
             return false;
         }
@@ -138,10 +139,10 @@ public class MainActivity extends AppCompatActivity {
         String word;
         int newIdx = 0;
         boolean lastword = false;
-        String LetraSep = "";
+        String separatedLetter = "";
 
         while (!lastword) {
-            if (temEspaco(rsltxt)) {//Checks for existence of space character
+            if (hasSpace(rsltxt)) {//Checks for existence of space character
                 word = rsltxt.substring(0, rsltxt.indexOf(' ')); //Chops string down to first word before space
                 newIdx = rsltxt.indexOf(' ') + 1; //Creates new index value to be used in next substring
 
@@ -150,11 +151,11 @@ public class MainActivity extends AppCompatActivity {
                 word = rsltxt;
                 lastword = true;
             }
-            if (MapLetra.get(word) != null) { //Checks for existence of word in the mapaLetra map after string is divided in words
+            if (MapLetter.get(word) != null) { //Checks for existence of word in the mapaLetra map after string is divided in words
                 Cell createList = new Cell();
 
-                createList.setLetra(word);
-                createList.setImg(resources.getIdentifier(MapLetra.get(word), "drawable", context.getPackageName()));
+                createList.setLetter(word);
+                createList.setImg(resources.getIdentifier(MapLetter.get(word), "drawable", context.getPackageName()));
                 theimage.add(createList);
             } else {
                 for (int i = 0; i < word.length(); i++) {
@@ -165,11 +166,11 @@ public class MainActivity extends AppCompatActivity {
                             word.toLowerCase().charAt(i) != '\'' ||
                             word.toLowerCase().charAt(i) != '\"' ||
                             word.toLowerCase().charAt(i) != '!'){
-                        LetraSep = String.valueOf(word.toLowerCase().charAt(i));
+                        separatedLetter = String.valueOf(word.toLowerCase().charAt(i));
                         Cell createList = new Cell();
 
-                        createList.setLetra(String.valueOf(LetraSep));
-                        createList.setImg(resources.getIdentifier(MapLetra.get(LetraSep), "drawable", context.getPackageName())); //Create object with the image version of the letter and text description
+                        createList.setLetter(String.valueOf(separatedLetter));
+                        createList.setImg(resources.getIdentifier(MapLetter.get(separatedLetter), "drawable", context.getPackageName())); //Create object with the image version of the letter and text description
                         theimage.add(createList); //Add said object to list
                     }
                 }

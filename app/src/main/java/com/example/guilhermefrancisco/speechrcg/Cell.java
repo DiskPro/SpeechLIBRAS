@@ -1,17 +1,17 @@
 package com.example.guilhermefrancisco.speechrcg;
 
 public class Cell {
-    private String letra;
+    private String letter;
     private Integer img;
 
     //Getters and setters.
 
-    public String getLetra() {
-        return letra;
+    public String getLetter() {
+        return letter;
     }
 
-    public void setLetra(String letra) {
-        this.letra = letra;
+    public void setLetter(String letra) {
+        this.letter = letra;
     }
 
     public Integer getImg() {
